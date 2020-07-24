@@ -3,6 +3,8 @@ import random
 
 NMAX = 50
 DAYMAX = 30
+# この値が小さいほど-1が返る頻度が多くなる。一旦は適当そうな20%に設定
+POSSIBILITY = 20
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -28,9 +30,7 @@ if __name__ == "__main__":
                     days.append(k)
                     continue
 
-                # 1/5くらいに適当に集まれる確率を設定
-                # ここの確率によって-1が返る頻度が変わる
-                if random.randint(0, 4) == 0:
+                if random.randint(1, 100) <= POSSIBILITY:
                     days.append(k)
 
             for i, day in enumerate(days):
