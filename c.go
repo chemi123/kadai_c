@@ -13,7 +13,7 @@ import (
 	   そこから集まった継承者が地図を集まった分だけ持つようにし、次に集まった時にそれをさらなる継承者に渡すというのを繰り返す。
 	   直感的な実装になりそう。ここでは試さないが、グラフを使った探索もできそう？
 */
-func collectMap(schedules [][]int) int {
+func collectMap(schedules [][]int, maxDay int) int {
 	return -1
 }
 
@@ -48,6 +48,5 @@ func main() {
 			schedules = append(schedules, days)
 		}
 		fmt.Println(schedules)
-		fmt.Println(maxDay)
 	}
 }
