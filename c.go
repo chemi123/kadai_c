@@ -31,6 +31,9 @@ func collectMap(schedules [][]int, maxDay int) int {
 		successorMap[i] = make(map[int]bool)
 	}
 
+	// 1 <= day <= 30, 1 <= N <= 50の条件で最悪ケースは単純計算だと30 * 50 * 50 * 50 = 3750000となる
+	// ただし単純に上記の掛け算にはならないと考えられるため、実測する必要があるがそこまで遅くはない？
+	// ただグラフの探索など少し良いやり方はないか考えられそうでもある。
 	for day := range scheduleMap {
 		for _, id1 := range scheduleMap[day] {
 			for _, id2 := range scheduleMap[day] {
