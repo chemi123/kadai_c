@@ -8,10 +8,10 @@ import (
 	"strings"
 )
 
-type Node struct {
+type node struct {
 	id   int
-	date int
-	left *Node
+	day  int
+	left *node
 }
 
 /*
@@ -34,17 +34,34 @@ type Node struct {
   2. 2日から探索開始。2日は縦方向に1, 2のidに探索できる。idが2から1日の日付に移動できる。ここで1のキャッシュ(idが0, 2)を参照し、2日の探索結果と合わせて0, 1, 2になるがまだ探索できていないため2日の結果をキャッシュに保存。
   3. 3日から探索開始、3日は縦方向に1, 3のidに探索できる。idが1から2日の日付に移動できる。ここで2のキャッシュ(idが0, 1, 2)を参照し、3日の探索結果と合わせて0, 1, 2, 3となり探索完了。3を返す。
 
-  データ構造は左にしか辿れないリンクリストと配列を使う。node01はidが0で日付が1日であることを示す。node06 -> node01と繋がっており、node01を参照することでidと日付が取れる。
+  データ構造は左にしか辿れないリンクリストと配列を使う。node01はidが0で日付が1日であることを示す。node06 -> node01と繋がっており、それぞれのnodeを参照することでidと日付が取れる。
     ↓ 0番目は0日に対応した日付がないので空。配列である以上便宜的に要素が存在するだけ。
   [[],[node01, node21], [node12, node22], [node23, node33], [node34], [node35], [node06]]
 */
-func collectMap2(schedules [][]int) int {
+func collectMap2(schedules [][]int, maxDay int) int {
 	// 条件は1 <= N <= 50であるため、一人の場合もある。その場合は集まる必要はないため0を返すことにする
 	if len(schedules) == 1 {
 		return 0
 	}
 
+	nodesList := make([][]*node, maxDay+1)
+	for id, schedule := range schedules {
+		var prevNode *node
+		for _, day := range schedule {
+			n := &node{id: id, day: day, left: prevNode}
+			prevNode = n
+			nodesList[day] = append(nodesList[day], n)
+		}
+	}
+
 	return -1
+}
+
+func max(num1, num2 int) int {
+	if num1 > num2 {
+		return num1
+	}
+	return num2
 }
 
 func main() {
@@ -56,16 +73,18 @@ func main() {
 		scanner.Scan()
 		n, _ := strconv.Atoi(scanner.Text())
 		schedules := make([][]int, 0, n)
+		maxDay := 0
 		for j := 0; j < n; j++ {
 			scanner.Scan()
 			daysStr := strings.Split(scanner.Text(), " ")
 			days := make([]int, 0, len(daysStr))
 			for _, dayStr := range daysStr {
 				day, _ := strconv.Atoi(dayStr)
+				maxDay = max(maxDay, day)
 				days = append(days, day)
 			}
 			schedules = append(schedules, days)
 		}
-		fmt.Println(collectMap2(schedules))
+		fmt.Println(collectMap2(schedules, maxDay))
 	}
 }
