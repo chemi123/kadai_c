@@ -20,7 +20,13 @@ func main() {
 		fmt.Println(n)
 		for j := 0; j < n; j++ {
 			scanner.Scan()
-			fmt.Println(scanner.Text())
+			daysStr := strings.Split(scanner.Text(), " ")
+			days := make([]int, 0, len(daysStr))
+			for _, dayStr := range daysStr {
+				day, _ := strconv.Atoi(dayStr)
+				days = append(days, day)
+			}
+			fmt.Println(days)
 		}
 	}
 }
