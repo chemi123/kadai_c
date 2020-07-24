@@ -14,6 +14,11 @@ import (
 	   直感的な実装になりそう。ここでは試さないが、グラフを使った探索もできそう？
 */
 func collectMap(schedules [][]int, maxDay int) int {
+	// 条件は1 <= N <= 50であるため、一人の場合もある。その場合は集まる必要はないため0を返すことにする
+	if len(schedules) == 1 {
+		return 0
+	}
+
 	// 日付がkey、その日に集まる継承者のリストがvalue。日付をそのままキーとしたかったためサイズはmaxDay+1で指定(keyが0は使わない)
 	scheduleMap := make([][]int, maxDay+1)
 

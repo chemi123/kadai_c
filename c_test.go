@@ -23,6 +23,12 @@ func Test_collectMap(t *testing.T) {
 			maxDay:    5,
 			wantDay:   -1,
 		},
+		{
+			name:      "one succesor",
+			schedules: [][]int{[]int{2, 5, 10, 30}},
+			maxDay:    30,
+			wantDay:   0,
+		},
 	}
 	for _, tc := range testCases {
 		day := collectMap(tc.schedules, tc.maxDay)
