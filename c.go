@@ -12,6 +12,7 @@ import (
   方針1: 継承者ごとのスケジュールのリスト(shedules [][]int)から日付ごとに集まれる継承者一覧のリストを作る。
         そこから集まった継承者が地図を集まった分だけ持つようにし、次に集まった時にそれをさらなる継承者に渡すというのを繰り返す。
         直感的な実装になりそう。グラフを使った探索もできそうだったため、これとはまた別にcollectoMap2を実装した。
+        最悪計算量がO(N^3*days)になる。
 */
 func collectMap(schedules [][]int, maxDay int) int {
 	// 条件は1 <= N <= 50であるため、一人の場合もある。その場合は集まる必要はないため0を返すことにする
@@ -36,8 +37,6 @@ func collectMap(schedules [][]int, maxDay int) int {
 		successorMap[i] = make(map[int]bool)
 	}
 
-	// 1 <= day <= 30, 1 <= N <= 50の条件で最悪ケースは単純計算だと30 * 50 * 50 * 50 = 3750000となる
-	// ただし単純に上記の掛け算にはならないと考えられるため、実測する必要があるがそこまで遅くはない？
 	for day := range scheduleMap {
 		for _, id1 := range scheduleMap[day] {
 			for _, id2 := range scheduleMap[day] {
