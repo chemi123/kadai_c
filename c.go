@@ -8,6 +8,10 @@ import (
 	"strings"
 )
 
+func collectMap(schedules [][]int) int {
+	return -1
+}
+
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
