@@ -18,6 +18,7 @@ func main() {
 		scanner.Scan()
 		n, _ := strconv.Atoi(scanner.Text())
 		fmt.Println(n)
+		schedules := make([][]int, 0, n)
 		for j := 0; j < n; j++ {
 			scanner.Scan()
 			daysStr := strings.Split(scanner.Text(), " ")
@@ -26,7 +27,8 @@ func main() {
 				day, _ := strconv.Atoi(dayStr)
 				days = append(days, day)
 			}
-			fmt.Println(days)
+			schedules = append(schedules, days)
 		}
+		fmt.Println(schedules)
 	}
 }
