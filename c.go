@@ -31,6 +31,22 @@ func collectMap(schedules [][]int, maxDay int) int {
 		successorMap[i] = make(map[int]bool)
 	}
 
+	for day := range scheduleMap {
+		for _, id1 := range scheduleMap[day] {
+			for _, id2 := range scheduleMap[day] {
+				successorMap[id1][id2] = true
+				for id3 := range successorMap[id2] {
+					if !successorMap[id1][id3] {
+						successorMap[id1][id3] = true
+					}
+				}
+				if len(successorMap[id1]) == len(schedules) {
+					return day
+				}
+			}
+		}
+	}
+
 	return -1
 }
 
