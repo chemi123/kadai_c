@@ -29,6 +29,7 @@ if __name__ == "__main__":
                     continue
 
                 # 1/5くらいに適当に集まれる確率を設定
+                # ここの確率によって-1が返る頻度が変わる
                 if random.randint(0, 4) == 0:
                     days.append(k)
 
