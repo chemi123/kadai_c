@@ -14,6 +14,16 @@ import (
 	   直感的な実装になりそう。ここでは試さないが、グラフを使った探索もできそう？
 */
 func collectMap(schedules [][]int, maxDay int) int {
+	// 日付がkey、その日に集まる継承者のリストがvalue。日付をそのままキーとしたかったためサイズはmaxDay+1で指定(keyが0は使わない)
+	scheduleMap := make([][]int, maxDay+1)
+
+	// 継承者は0からidとして振り分けることにする(三人いれば上から0, 1, 2)
+	for id, schedule := range schedules {
+		for _, day := range schedule {
+			scheduleMap[day] = append(scheduleMap[day], id)
+		}
+	}
+
 	return -1
 }
 
@@ -28,12 +38,10 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	dataSetNum, _ := strconv.Atoi(strings.TrimSpace(scanner.Text()))
-	fmt.Println(dataSetNum)
 
 	for i := 0; i < dataSetNum; i++ {
 		scanner.Scan()
 		n, _ := strconv.Atoi(scanner.Text())
-		fmt.Println(n)
 		schedules := make([][]int, 0, n)
 		maxDay := 0
 		for j := 0; j < n; j++ {
@@ -47,6 +55,6 @@ func main() {
 			}
 			schedules = append(schedules, days)
 		}
-		fmt.Println(schedules)
+		fmt.Println(collectMap(schedules, maxDay))
 	}
 }
