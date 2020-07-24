@@ -58,6 +58,10 @@ func collectMap(schedules [][]int, maxDay int) int {
 	return -1
 }
 
+/*
+  math.Maxはfloat64の引数を取り、float64を返すものしか提供していない。使いにくいので自分でintのmax関数を定義
+  https://golang.org/pkg/math/#Max
+*/
 func max(num1, num2 int) int {
 	if num1 > num2 {
 		return num1
