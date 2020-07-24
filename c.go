@@ -24,6 +24,13 @@ func collectMap(schedules [][]int, maxDay int) int {
 		}
 	}
 
+	// 継承者毎に持っている地図(継承者のid)のmap
+	// keyが継承者id, valueが持っている地図のid(setが良いが、golangはsetを提供していないためmap[int]boolで代用)
+	successorMap := make([]map[int]bool, len(schedules))
+	for i := range successorMap {
+		successorMap[i] = make(map[int]bool)
+	}
+
 	return -1
 }
 
